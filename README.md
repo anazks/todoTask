@@ -1,5 +1,6 @@
 # my-vuex-project
-
+To-do list
+ask if past the due date and not marked as complete (highlight task in red). and also if the due date is today then it shows a reminder also
 ## Project setup
 ```
 npm install
