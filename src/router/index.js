@@ -10,9 +10,9 @@ const routes =[
     {
         path:'/addTask',
         component:AddTaskView
-    }
-];
-
+    },
+ 
+]
 const router = createRouter({
     history:createWebHistory(),
     routes:routes
