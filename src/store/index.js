@@ -27,7 +27,7 @@ export  const store =  createStore({
     actions :{
         async getAllTasks({ commit }){
           try {
-              await axiosClient.get('/getTasks').then((response)=>{
+              await axiosClient.get('/GetAllTask').then((response)=>{
                 console.log(response.data,"data")
                 const now = new Date();
                 const date = new Date(now);
@@ -63,8 +63,8 @@ export  const store =  createStore({
         },
         async duplicateTask({dispatch},taskId){
             try {
-                await axiosClient.post('/duplicate',{taskId}).then( async(response)=>{
-                    console.log(response)
+                await axiosClient.post('/Duplicate',{taskId}).then( async(response)=>{
+                    console.log(response,"duplicated")
                         await dispatch('getAllTasks')
                 })
             } catch (error) {
@@ -93,7 +93,7 @@ export  const store =  createStore({
         },
         async AddTask({dispatch},body){
             try {
-                await axiosClient.post('/addTask',body).then( async(response)=>{
+                await axiosClient.post('/AddTask',body).then( async(response)=>{
                     console.log(response)
                     await dispatch('getAllTasks')
                 })
