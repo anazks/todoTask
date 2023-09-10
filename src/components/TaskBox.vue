@@ -4,9 +4,25 @@
     <AlertPage :alertContent=alertContent  @updateShowAlerts="updateShowAlert" />
     <!-- <h1>halo</h1> -->
   </div>
+     <div v-if="isEmptyData && !isLoading">
+        <div class="flex items-center justify-center mt-64 animate-pulse">
+            <div class="bg-gray-200 p-4 rounded-lg">
+            Task Is Empty
+                  <CreateButton/>
+            </div>
+          </div>
+     </div>
+     <div v-if="isLoading && isEmptyData" class="mt-28">
+           <LoadingTask/>
+            <LoadingTask/>
+             <LoadingTask/>
+             <LoadingTask/>
+            <LoadingTask/>
+             <LoadingTask/>
+     </div>
   <div class="mt-14 p-8">
   
-      <div v-for="task in task" :key="task._id" class="flex items-center justify-center h-fullscreen w-4/5 bg-sky-900	 	shadow-md mx-auto mt-4 h-44 transition ease-in-out delay-150 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300">
+      <div v-for="task in task" :key="task._id" class="flex items-center justify-center h-fullscreen w-4/5  	shadow-md mx-auto mt-4 h-40 transition ease-in-out delay-150 bg-orange-600		 hover:-translate-y-1 hover:scale-110 hover:bg-stone-500	 duration-300">
 
           <div class="p-4">
             <div v-if="task.status">
@@ -85,15 +101,15 @@
         </div>
         <DeleteConfirmation   @updateShowAlerts="updateShowAlert" @deleteAlert="deleteAlert"  @getTasks="getTasks"  :isOpen="isDeletePopupOpen" :taskId=taskToDeleteId @close="closeDeletePopup" @delete="deleteTask(task._id)" />
         
-    </div>
-  
-  
-   
+ 
+   </div>
   </template>
   
   <script>
   import DeleteConfirmation from './DeleteConfirmation.vue'
   import AlertPage from './AlertPage.vue'
+  import LoadingTask from './LoadingTask.vue'
+  import CreateButton from './CreateButton.vue'
   import axios from 'axios'
   import { mapState ,mapGetters} from 'vuex';
  
@@ -101,7 +117,9 @@
     name: 'App',
     components:{
       DeleteConfirmation,
+      LoadingTask,
       AlertPage,
+      CreateButton
       
     },
     data(){
@@ -116,6 +134,12 @@
      }
     },
       computed:{
+         isEmptyData() {
+      return this.$store.state.task.length === 0; // Change 'myData' to your state variable name
+    },
+         isLoading() {
+               return this.$store.getters.isLoading;
+         },
           ...mapState([
             'task'
           ]),
@@ -148,7 +172,7 @@
           },
           EditTask(taskId){ 
           console.log(taskId,"The id to be edited")
-          axios.post(`http://localhost:3001/getOneTask/`,{taskId})
+          axios.post(`https://to-do-api-9d3q.onrender.com/getOneTask/`,{taskId})
           .then(res => {
             console.log(res.data);
             this.TaskUpdation = res.data;

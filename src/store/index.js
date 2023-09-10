@@ -4,11 +4,15 @@ export  const store =  createStore({
  
     state (){
         return {
-            task :[]
+            task :[],
+            loading: false,
         };
         
     },
     mutations :{
+        SET_LOADING(state, value) {
+            state.loading = value;
+          },
         allTask(state,data){
             state.task = data
             state.originalTask = data.slice()
@@ -20,13 +24,12 @@ export  const store =  createStore({
             console.log(error)
           }
         },
-        GetallTask(state) {
-            state.task = state.originalTask.slice(); // Restore the original task array
-          }
+      
     },
     actions :{
         async getAllTasks({ commit }){
           try {
+              commit('SET_LOADING', true);
               await axiosClient.get('/GetAllTask').then((response)=>{
                 console.log(response.data,"data")
                 const now = new Date();
@@ -44,6 +47,7 @@ export  const store =  createStore({
                     }
                 })
                 commit('allTask',response.data)
+                commit('SET_LOADING', false);
             })
           } catch (error) {
               console.log(error)
@@ -101,5 +105,9 @@ export  const store =  createStore({
                 console.log(error)
             }
         }
+    },
+    getters:{
+        isLoading: (state) => state.loading,
+
     }
   })

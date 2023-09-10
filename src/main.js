@@ -5,7 +5,6 @@ import './index.css'
 import router from './router';
 import { OhVueIcon } from "oh-vue-icons";
 
-
 const app =  createApp(App);
 // const router = createRouter({
 //     history:createWebHistory(),

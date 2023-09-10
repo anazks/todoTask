@@ -1,10 +1,10 @@
 <template>
     <div>
-      <div class="flex items-center justify-center mt-28 p-8">
-        <form  class="w-4/3 bg-purple-500 shadow-md rounded px-8 p-18  pb-8 mb-4">
+      <div class="flex items-center justify-center mt-28 p-8 h-100">
+        <form  class="w-4/3 bg-orange-600	 shadow-md rounded px-8 p-18  pb-8 mb-4">
           <span v-if="errors.task" class="text-red-600"><i>{{errors.task}}</i></span>
           <div class="mb-6">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="task">
+            <label class="block text-white text-sm font-bold mb-2" for="task">
               Task
             </label>
             <input
@@ -14,7 +14,7 @@
               placeholder="Enter your task..."
               v-model="tasks.task"
             />
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="dueDate">
+            <label class="block text-white text-sm font-bold mb-2" for="dueDate">
               Enter Due Date
             </label>
             <label for="datePicker">Select a date:</label>
